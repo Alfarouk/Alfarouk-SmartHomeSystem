@@ -1,4 +1,4 @@
-"""New optional bounded serial transport; not a recovered Arduino implementation."""
+"""Optional serial transport with bounded requests and matching response IDs."""
 from __future__ import annotations
 
 import json

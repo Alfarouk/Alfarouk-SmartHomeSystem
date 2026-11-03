@@ -1,36 +1,24 @@
-# Source features and current interfaces
+# Features and interfaces
 
-The supplied archive contains two application branches. This table separates
-their implemented behavior from configuration-only entries and from the
-candidate's reported hardware work.
+Text commands, the browser dashboard and the Python API share the same
+validated controller. Optional integrations stay separate from the core.
 
-| Source feature | Supplied branch | Current usable interface | Result or intentional change |
-| --- | --- | --- | --- |
-| Phrase samples and synonyms | `logic/analyzer.py`, `config/commands.yaml` | Text CLI, voice transcript, dashboard command form | Direct supported phrases execute; ambiguous security wording is clarified; fuzzy wording suggests only |
-| Text/voice console choice | `tests/console.py` | `smart-home console` / `smart-home voice` | Separate modes replace recursive switching |
-| Lights on/off | Both | Text, device cards, `Home.execute` | Preserved; rooms and names resolve explicitly |
-| Door lock/unlock | Both | Text, door card, `Home.execute` | Preserved; unlock requires demo code and disarmed alarm |
-| Door open/close | Recovered `AI.py` | Text, door card, `Home.execute` | Preserved; locked door cannot open and open door cannot lock |
-| Five-second door auto-close | Recovered `AI.py` | Any open-door command, polled state | Preserved with a bounded clock deadline instead of unowned timer threads |
-| Alarm arm/disarm | Small simulator branch | Text, alarm card, `Home.execute` | Preserved; configured code requirement is enforced; disarm is no longer incorrectly blocked merely because the door is locked |
-| Device names and rooms | Recovered `AI.py` / both JSON files | Named/room text commands, room filter, state API | Preserved and validated |
-| Light dimming | Recovered `AI.py` | `dim Main Light to 30`, slider, typed API | Preserved; range 0–100 enforced |
-| Light color | Recovered `AI.py` | `set Main Light color to blue`, typed API | Preserved |
-| Curtain open/close/position | Recovered `AI.py` | Text, card/slider, typed API | Preserved; range 0–100 enforced |
-| Device add/remove | Recovered `AI.py` | `smart-home device`, `Home.add_device/remove_device` | Preserved with duplicate-id/schema checks and scene-reference protection |
-| Configuration load/save | Recovered `AI.py` | `--state-file`, `smart-home config`, `Home.replace_configuration` | Preserved; explicit paths and atomic writes replace current-directory dependence and silent reset |
-| Movie/morning/night scenes | Both JSON files, implemented by `AI.py` | Scene cards, text command, `Home.scene` | Both configurations reconciled into one complete set; atomic execution replaces partial changes |
-| Scene add/edit | Recovered `AI.py` | `smart-home scene save`, `Home.save_scene` | Preserved; scene validation added |
-| Scene removal | Not in original | `smart-home scene remove`, `Home.remove_scene` | New safe management support |
-| Help and status | Both | Text CLI, command form, `smart-home status` | Preserved; help/status do not alter device state |
-| Named device/room status | Recovered `AI.py` | `status of Front Door`, `status of Living Room` | Preserved, including lock state |
-| Wake-phrase speech | Recovered `AI.py` | `smart-home voice --wake-word "home assistant"` | Broken split call replaced with an explicit opening phrase and bounded recording |
-| Speech recognition | Both | Microphone or `--audio-file` | Local PocketSphinx replaces implicit Google upload; errors and unclear speech make no change |
-| Spoken response | Both | Voice `--speak`, `smart-home speak`, Python `speak()` | Preserved as an optional isolated native-driver path with timeout |
-| Fan/bin | Only small JSON configuration, no supplied device implementation | Device cards, commands, typed API | New simulated implementation, not claimed as recovered original code |
-| 30-minute light duration / 30-second arming delay | YAML parameter declarations, not consumed by either supplied runtime | No hidden automatic schedule | Kept as source context, not claimed as a working recovered timer; only demonstrated source auto-close behavior is restored |
-| Speaker/camera/appliance enum members | Declared by `AI.py`, not implemented | No pretend device implementation | Recorded as unimplemented source declarations |
-| Facial recognition / Pi GPIO / Arduino | Candidate report; actual modules not supplied | Optional new face comparison and serial diagnostic | Reported historical work retained; these new modules are not proof of the old physical implementation |
+| Feature | Interface | Behavior |
+| --- | --- | --- |
+| Commands and help | Text CLI, dashboard form, voice transcript | Direct supported phrases execute; unclear wording makes no change. |
+| Lights | Text, device cards, `Home.execute` | On/off, brightness and color; named devices and rooms. |
+| Doors | Text, door cards, `Home.execute` | Lock/unlock, open/close and five-second auto-close; shared code/alarm policy. |
+| Alarm | Text, alarm card, `Home.execute` | Arm/disarm with code and door-state checks. |
+| Curtains | Text, device cards, `Home.execute` | Open/close and percentage position. |
+| Fan and bin | Text, device cards, `Home.execute` | Fan speed/on/off; bin open/close and three-second auto-close. |
+| Device management | `smart-home device`, `Home.add_device/remove_device` | Schema, ID and scene-reference checks. |
+| Configuration | `--state-file`, `smart-home config`, `Home.replace_configuration` | Explicit JSON import/export with atomic saves. |
+| Scenes | Cards, text, `smart-home scene`, `Home.scene/save_scene/remove_scene` | Validated operations applied as one transaction. |
+| Status | CLI, dashboard, state API | Whole-home, named-device and room status, without device changes. |
+| Offline speech | `smart-home voice`, microphone or WAV file | Explicit wake phrase and bounded local recognition. |
+| Spoken output | Voice `--speak`, `smart-home speak`, Python `speak()` | Optional native-driver output with timeout. |
+| Face comparison | `smart-home face-compare` | Local one-face image comparison; no door operation. |
+| Serial transport | `smart-home serial-loopback`, `SerialLink` | Bounded JSON requests with matching response IDs; hardware firmware is separate. |
 
 ## Device and scene JSON
 

@@ -41,5 +41,5 @@
     "https://pyserial.readthedocs.io/en/latest/pyserial_api.html"
   ],
   "model_commit": "48b10fa505aeb51fbd127fc60a5c660040e823b7",
-  "version_claim_limit": "Checked versions as of restoration; current/future package availability or physical hardware compatibility is not assumed."
+  "version_claim_limit": "Versions and package compatibility checked on 3 November 2026. Physical hardware compatibility requires separate testing."
 }

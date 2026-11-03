@@ -1,8 +1,7 @@
 # Smart Home System
 
-A local smart-home demonstration based on Alfarouk Salah Elkashef's academic
-project. It brings text commands, room controls, device state and scenes into
-one testable controller. You can run it on a laptop without a microphone,
+A local smart-home controller with text commands, room controls, device state,
+scenes and a browser dashboard. You can run it on a laptop without a microphone,
 camera, Raspberry Pi, Arduino or online AI account.
 
 **The dashboard is a simulator. It never controls a real door or alarm.**
@@ -116,7 +115,7 @@ python -m smart_home.models models
 smart-home face-compare your-consented-reference.jpg your-consented-probe.jpg
 ```
 
-This optional restoration feature compares one face in each local image with
+This optional feature compares one face in each local image with
 OpenCV YuNet and SFace. Models are downloaded explicitly from a pinned OpenCV
 Zoo commit and checked by size and SHA256. Images and embeddings are not
 stored. **A comparison does not unlock a door.** It provides no liveness,
@@ -131,7 +130,7 @@ smart-home serial-loopback
 
 This sends and reads a bounded JSON frame through pySerial's in-memory
 `loop://` port. It verifies software framing, not Arduino wiring or a physical
-actuator. The new serial adapter is separate from the simulator; no serial
+actuator. The serial adapter is separate from the simulator; no serial
 port is opened by the dashboard. See the documented protocol before using an
 actual controller.
 
@@ -154,38 +153,18 @@ configuration validation, HTTP requests, local-origin boundaries and optional
 serial framing. CI also checks supported Python versions. A passing software
 test is not evidence of a physical installation.
 
-## Where the project came from
+## Documentation
 
-Farouk reports leading planning and coordination for a 20-person team in
-May 2025, implementing a Python voice assistant on a Raspberry Pi 5, coordinating
-Arduino serial communication, and working on facial access control and system
-integration. These are his reported contributions, not a claim that this
-archive alone proves every hardware or camera feature.
-
-The supplied archive contains two first-party software branches: a phrase
-analyzer with a lights/door/alarm simulator, and a larger configurable
-device/scene/voice controller. The larger file was stored inside the old
-Windows virtual environment and was recovered during review. That environment
-is not shipped or executed here.
-
-The supplied source does not include an implemented facial module, Raspberry
-Pi GPIO driver, Arduino serial driver, wiring diagrams or firmware. Missing
-files do not establish that those parts never existed. The current dashboard,
-packaging, tests, state-machine repair, offline voice path, face-comparison
-module and serial diagnostic were added in an **AI-assisted restoration on
-3 November 2026**. They should not be presented as independently authored
-May 2025 code.
-
-Read [provenance and contribution boundaries](docs/provenance.md),
-[architecture](docs/architecture.md), [restoration notes](docs/restoration.md)
-and [handover](docs/handover.md) before presenting or extending the work.
-The [feature matrix](docs/feature-matrix.md) maps both recovered source branches
-to their current interfaces and marks intentional changes.
+- [Architecture](docs/architecture.md): controller, state and adapter boundaries.
+- [Features and interfaces](docs/feature-matrix.md): commands, JSON and Python API.
+- [Behavior and validation](docs/behavior.md): transactions, errors and safeguards.
+- [Walkthrough](docs/walkthrough.md): a short demonstration of the main flows.
+- [Optional voice, face and hardware](docs/hardware.md): setup and integration limits.
+- [Checks](docs/verification.json): test coverage and tested environments.
 
 ## License and credits
 
-The original academic archive included no license or contributor agreement.
-Alfarouk and his team retain their respective contributions; this repository
-does not invent sole authorship or relicense their work. See [LICENSE.md](LICENSE.md).
-Optional dependencies and downloaded models keep their own licenses. No
-third-party environment or model weights are bundled into this repository.
+See [LICENSE.md](LICENSE.md) for project reuse terms and
+[credits](docs/credits.md) for dependencies and model licenses.
+Optional dependencies and downloaded models retain their upstream licenses.
+Third-party environments and model weights are not bundled in the repository.

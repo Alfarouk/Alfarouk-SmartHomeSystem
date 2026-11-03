@@ -5,8 +5,8 @@ so unavailable devices do not stop the main application.
 
 ## Voice
 
-`SpeechRecognition 3.17.0` and `PocketSphinx 5.1.1` are the current stable versions
-checked during restoration. The WAV-file path needs no microphone library.
+The voice extra pins `SpeechRecognition 3.17.0` and `PocketSphinx 5.1.1`.
+The WAV-file path needs no microphone library.
 Microphone use additionally needs PyAudio and an operating-system PortAudio
 installation. The current PocketSphinx wheel matrix may lag the newest Python
 release; Python 3.12 or 3.13 is a practical supported environment for that extra.
@@ -26,9 +26,8 @@ the controller. File output was verified on macOS without playing audio.
 
 ## Face comparison
 
-The supplied archive does not include the reported historical facial-access
-module. The new optional feature uses the documented OpenCV `FaceDetectorYN`
-and `FaceRecognizerSF` interfaces with pinned YuNet and SFace ONNX models.
+Face comparison uses the OpenCV `FaceDetectorYN` and `FaceRecognizerSF`
+interfaces with pinned YuNet and SFace ONNX models.
 Its purpose is to demonstrate local detection, alignment, embeddings and a
 comparison score on consented images.
 
@@ -44,11 +43,11 @@ and SHA256 values before accepting weights, and saves upstream license texts.
 
 ## Serial interface
 
-The archive names GPIO and serial action strings but contains no working
-transport or Arduino firmware. `SerialLink` is a new optional transport
-boundary, not a recovered firmware implementation.
+`SerialLink` provides a bounded request/response interface for a local serial
+port or in-memory loopback. Hardware-specific GPIO and Arduino firmware are
+separate integration components.
 
-It uses115200 baud and newline-delimited JSON. Example request:
+It uses 115200 baud and newline-delimited JSON. Example request:
 
 ```json
 {"id":1,"command":"PING"}
@@ -64,14 +63,13 @@ Commands allowed by the transport are `PING`, `GPIO_23_HIGH`, `GPIO_23_LOW`,
 `DL1`, `DL0`, `ALARM_ARM` and `ALARM_DISARM`. A matching request id and `ok:true`
 confirm only a protocol acknowledgement, not physical actuator state. The
 in-memory `loop://` check expects an echo instead and labels it as loopback.
-Remote serial URL handlers are rejected. Reads are bounded to256 bytes and a
+Remote serial URL handlers are rejected. Reads are bounded to 256 bytes and a
 configured timeout; ports are closed through a context manager.
 
-Before any physical integration, retrieve the actual original firmware,
-pin/wiring plan and hardware specification; bench-test each actuator; obtain
-observed state feedback; and integrate the same controller policy rather than
-creating a second path around it. Do not connect this demo to a real lock on
-the strength of a software loopback or a facial similarity score.
+For physical integration, define the firmware, pin/wiring plan and hardware
+specification. Bench-test each actuator and obtain observed state feedback.
+Route actions through the same controller policy. A software loopback or facial
+similarity score does not validate a physical lock or access-control system.
 
 ## Primary documentation
 

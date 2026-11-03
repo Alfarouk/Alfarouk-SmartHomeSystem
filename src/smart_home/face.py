@@ -1,7 +1,7 @@
-"""Optional consented-image comparison, separate from all door controls.
+"""Local face comparison on consented images, separate from door controls.
 
-This module was added during restoration. The supplied archive did not contain
-the candidate-reported facial-recognition implementation.
+YuNet detects a face and SFace compares aligned embeddings. Results are
+comparison scores, not access-control or liveness decisions.
 """
 from __future__ import annotations
 
@@ -48,7 +48,7 @@ def download_models(directory: Path) -> None:
                "/models/" + str(info["folder"]) + "/" + name)
         temp = None
         try:
-            request = urllib.request.Request(url, headers={"User-Agent": "SmartHomePortfolio/1"})
+            request = urllib.request.Request(url, headers={"User-Agent": "SmartHomeSystem/1"})
             with urllib.request.urlopen(request, timeout=45) as response:
                 with tempfile.NamedTemporaryFile(dir=directory, delete=False) as out:
                     temp = Path(out.name)

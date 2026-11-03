@@ -16,9 +16,9 @@ flowchart LR
 dashboard button become the same typed `Operation`. A scene becomes an ordered
 list of operations and either commits completely or makes no change.
 
-This avoids the old separation between an action string and an independently
-generated success message. A refused action now produces a refused result in
-every interface. The user sees the same state and explanation.
+The controller returns one result for the operation, response and display.
+A refused action produces the same refusal in every interface. The user sees
+the resulting state and explanation together.
 
 ## State and persistence
 
@@ -53,7 +53,7 @@ also warns against treating `http.server` as a production server.
 ## Optional boundaries
 
 Audio packages load only when voice mode is selected. PocketSphinx recognizes
-locally; the previous implicit Google request was removed. The face module
+locally without an external speech service. The face module
 loads OpenCV only when requested and produces a comparison result, never a
 door operation. Serial diagnostics require an explicit extra and explicit
 local port. None of these adapters is imported by normal text/dashboard mode.

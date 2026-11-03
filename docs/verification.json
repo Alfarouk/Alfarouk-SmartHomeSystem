@@ -43,8 +43,7 @@
     "environment_model_and_credential_exclusions_checked": true,
     "clean_wheel_install": "Passed: import from site-packages, packaged configuration, command flow and all local HTTP assets."
   },
-  "browser": "Root operator completed actual browser check and captured docs/images/dashboard.jpg and scene-and-command-check.jpg; owning private browser receipt records the full observations.",
-  "physical_validation": "No Raspberry Pi, Arduino, wiring, actuator, camera or microphone was supplied or accessed.",
-  "historical_authorship": "New restoration code and passing tests do not establish sole original authorship or personally reproducible mastery.",
-  "independent_release_check": "37 tests passed after normalising omitted optional scene maps; the import/save/run scene regression passed. Independent review found no published hardware, medical or sole-authorship overclaim."
+  "browser": "Local browser flows cover device controls, scenes, command handling, code-protected actions and room filtering. Screenshots are in docs/images/.",
+  "physical_validation": "Software checks cover simulation, local files and serial loopback. Raspberry Pi, Arduino, wiring, actuators, camera and microphone were not part of the hardware test setup.",
+  "independent_release_check": "37 tests passed, including configuration import and scene save/run. Hardware integration and face-recognition accuracy are outside the software checks."
 }

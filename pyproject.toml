@@ -4,8 +4,8 @@ build-backend = "hatchling.build"
 
 [project]
 name = "farouk-smart-home"
-version = "1.0.0"
-description = "An academic smart-home controller restored as a local, testable portfolio demo"
+version = "1.0.1"
+description = "A local smart-home controller with text, voice, scenes and browser controls"
 readme = "README.md"
 requires-python = ">=3.12"
 authors = [{name = "Alfarouk Salah Elkashef"}]
