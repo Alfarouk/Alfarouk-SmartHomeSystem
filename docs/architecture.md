@@ -12,13 +12,13 @@ flowchart LR
     Commit --> Result[One result for response and display]
 ```
 
-`Home` owns all state. The parser never mutates it. Both a text command and a
-dashboard button become the same typed `Operation`. A scene becomes an ordered
-list of operations and either commits completely or makes no change.
+`Home` stores the device state. The parser turns a text command into an
+`Operation`; dashboard buttons use the same type. A scene is a list of these
+operations. The controller checks the full list before applying any change.
 
-The controller returns one result for the operation, response and display.
-A refused action produces the same refusal in every interface. The user sees
-the resulting state and explanation together.
+The controller returns a success flag, a message and the IDs of changed devices.
+The dashboard pairs this result with the current state. A refusal leaves that
+state unchanged.
 
 ## State and persistence
 
@@ -30,15 +30,15 @@ door. Unlock and disarm require the simulator code.
 Auto-close is evaluated against an injected clock when state is read or a
 command runs. It does not launch background timer threads. The dashboard polls
 once per second, so an elapsed deadline becomes visible without another user
-command. Auto-close does not pretend to relock the door.
+command. Closing a door does not relock it.
 
 By default state is in memory. An explicit state file is written to a temporary
 file, flushed, then atomically replaced. A corrupt file is rejected without
 overwriting it. A save failure prevents a success response and leaves the
-in-memory transaction unchanged. Runtime activity and codes are not written
-into the project or exposed as public repository data.
+in-memory transaction unchanged. Saved state excludes the activity history
+and control code.
 
-## Local dashboard boundary
+## Local dashboard
 
 The standard-library HTTP server accepts only loopback binding. It serves
 three named static assets rather than a directory tree. JSON requests have a
@@ -50,7 +50,7 @@ This is a local demonstration server, not a hardened internet service. Python's
 [HTTP server documentation](https://docs.python.org/3/library/http.server.html)
 also warns against treating `http.server` as a production server.
 
-## Optional boundaries
+## Optional integrations
 
 Audio packages load only when voice mode is selected. PocketSphinx recognizes
 locally without an external speech service. The face module

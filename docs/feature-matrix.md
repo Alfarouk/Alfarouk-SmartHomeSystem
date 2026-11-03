@@ -1,7 +1,7 @@
 # Features and interfaces
 
-Text commands, the browser dashboard and the Python API share the same
-validated controller. Optional integrations stay separate from the core.
+Text commands, the browser dashboard and the Python API call the same
+controller. Voice, face and serial tools are installed separately.
 
 | Feature | Interface | Behavior |
 | --- | --- | --- |
@@ -62,7 +62,6 @@ if added.ok:
 print(home.snapshot())
 ```
 
-The API returns one explicit success/refusal result. Do not mutate `home.data`
-directly; use the validated methods. A scene is saved independently of whether
-its current door/alarm policy would permit execution. Those policies are
-checked when it actually runs.
+The API returns a success flag, a message and the IDs of changed devices.
+Use the methods above rather than changing `home.data` directly. Saving a scene
+does not run it. Door and alarm rules are checked when the scene runs.

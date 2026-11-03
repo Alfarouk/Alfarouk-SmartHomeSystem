@@ -1,7 +1,7 @@
 # Optional voice, face and serial work
 
-The laptop demo is complete without hardware. These optional paths are separate
-so unavailable devices do not stop the main application.
+The main application runs on a laptop without connected hardware. Voice, face
+comparison and serial communication have separate setup steps below.
 
 ## Voice
 
@@ -10,7 +10,7 @@ The WAV-file path needs no microphone library.
 Microphone use additionally needs PyAudio and an operating-system PortAudio
 installation. The current PocketSphinx wheel matrix may lag the newest Python
 release; Python 3.12 or 3.13 is a practical supported environment for that extra.
-The core itself is tested separately on the installed Python version.
+The core has no audio-library dependency.
 
 Start with the explicit wake phrase “home assistant”, then a direct command.
 Microphone input is bounded to seven seconds; audio files are read for at most
@@ -27,9 +27,8 @@ the controller. File output was verified on macOS without playing audio.
 ## Face comparison
 
 Face comparison uses the OpenCV `FaceDetectorYN` and `FaceRecognizerSF`
-interfaces with pinned YuNet and SFace ONNX models.
-Its purpose is to demonstrate local detection, alignment, embeddings and a
-comparison score on consented images.
+interfaces with pinned YuNet and SFace ONNX models. It detects and aligns a face
+in each consented image, computes embeddings and returns a comparison score.
 
 Only one detected face is accepted per image. No image or embedding is saved.
 The 0.363 cosine reference is from the OpenCV tutorial's LFW example; it is

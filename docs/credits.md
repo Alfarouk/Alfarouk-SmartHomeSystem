@@ -1,7 +1,9 @@
 # Credits and dependencies
 
-Smart Home System is an academic team project maintained by Alfarouk Salah
-Elkashef. Contributor rights are described in [LICENSE.md](../LICENSE.md).
+Maintainer: Alfarouk Salah Elkashef.
+
+This is an academic team project. See [LICENSE.md](../LICENSE.md) for contributor
+rights and reuse terms.
 
 The core controller and local dashboard use the Python standard library.
 Optional integrations use these packages and models:

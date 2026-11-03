@@ -1,8 +1,9 @@
 # Smart Home System
 
-A local smart-home controller with text commands, room controls, device state,
-scenes and a browser dashboard. You can run it on a laptop without a microphone,
-camera, Raspberry Pi, Arduino or online AI account.
+Smart Home System manages lights, doors, curtains, a fan, a bin and an alarm.
+Text commands, scenes and the web dashboard all use the same device state.
+The main application runs on a laptop. Voice, face comparison and serial tools
+are optional.
 
 **The dashboard is a simulator. It never controls a real door or alarm.**
 
@@ -44,7 +45,7 @@ The simulator's unlock/disarm code is **2468**. You can replace it through
 `SMART_HOME_CONTROL_CODE`. It is a demo control, not a security credential for
 a real home. Codes are not saved in state or command logs.
 
-## What works
+## Features
 
 | Area | Examples |
 | --- | --- |
@@ -54,21 +55,20 @@ a real home. Codes are not saved in state or command logs.
 | Fan | On/off and percentage speed |
 | Bin | Open/close and three-second simulated auto-close |
 | Alarm | Arm/disarm, with door-state and control-code checks |
-| Scenes | Movie time, good morning, night mode; validated as one transaction |
+| Scenes | Movie time, good morning, night mode; all changes apply together or none do |
 | Device setup | Add/remove configured devices and save named scenes through the CLI or Python API |
-| State | Explicit optional JSON persistence, atomic saves, readable errors |
+| State | Optional JSON state file; a failed save leaves the previous state unchanged |
 
 Try `turn on lights in Bedroom`, `open Window Curtain`, `set Ceiling Fan speed
-to 40`, `activate scene movie time` or `help`. Commands must be direct. A typo
-may produce a suggestion, but fuzzy matching never operates a device.
+to 40`, `activate scene movie time` or `help`.
 
-The current parser is a small explicit grammar. It does not use a large
-language model or claim general language understanding.
+The parser accepts fixed command patterns. Misspelled names can produce a
+suggestion, but the suggested command is never run automatically.
 
 ## Optional features
 
-These use separate extras so a missing audio or camera library cannot break
-the core demo.
+Install only the extras you need. The text commands and dashboard work without
+the audio, camera or serial packages.
 
 ### Offline speech
 
@@ -149,9 +149,9 @@ separate. `uv lock --check` verifies that the lock matches the project.
 
 Tests cover the command-to-state flow, all device families, refused commands,
 door/alarm policies, atomic scene failure, persistence failure, timer behavior,
-configuration validation, HTTP requests, local-origin boundaries and optional
-serial framing. CI also checks supported Python versions. A passing software
-test is not evidence of a physical installation.
+configuration validation, HTTP requests, local-origin checks and optional serial
+framing. CI runs the suite on supported Python versions. Physical installations
+need separate hardware tests.
 
 ## Documentation
 
