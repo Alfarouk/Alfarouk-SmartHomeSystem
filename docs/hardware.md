@@ -22,7 +22,7 @@ control-code requirement for sensitive simulated actions.
 Spoken output is optional: install `'.[tts]'` and use voice mode's `--speak`
 flag, or use `smart-home speak` to read/save a result. The native driver runs
 in a separate process with a 20-second timeout, so a stuck driver cannot hang
-the controller. File output was verified on macOS without playing audio.
+the controller. File output writes speech to an audio file without playing it.
 
 ## Face comparison
 

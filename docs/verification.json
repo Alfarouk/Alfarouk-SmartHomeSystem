@@ -1,49 +1,42 @@
 {
-  "as_of": "2026-11-03",
-  "status": "software_checks_passed",
-  "core_environment": "Python 3.14.5 on macOS arm64",
-  "compatibility_voice_environment": "Python 3.12.14 on macOS arm64",
-  "regression_tests": {
-    "python_3_14": {
-      "tests": 37,
-      "failed": 0,
-      "skipped": 0
-    },
-    "python_3_12": {
-      "tests": 37,
-      "failed": 0,
-      "skipped": 1,
-      "skip_reason": "Optional serial extra absent in the separate voice environment; serial loopback passed in core/face/serial environment."
-    }
+  "test_suite": {
+    "command": "python -m unittest discover -s tests -v",
+    "cases": 37,
+    "install": "python -m pip install -e '.[serial,dev]'"
   },
-  "ruff": "passed",
-  "dependency_consistency": "pip check passed in both installed environments",
-  "direct_cli_management": "A ten-step round trip passed: configuration export/import, device add, scene save/run, status, refusal to remove a referenced device, scene removal, device removal and negated-command refusal.",
-  "voice": {
-    "offline_recognition": "locally generated utterance home assistant turn on the lights recognized and executed in simulator",
-    "microphone_accessed": false,
-    "audio_sent_to_cloud": false,
-    "speech_output": "The native TTS driver saved a usable 1.532245-second audio file without playing it.",
-    "scope": "One reproducible software path, not a measured speech-accuracy or microphone/hardware evaluation."
+  "ci": {
+    "python_versions": [
+      "3.12",
+      "3.13",
+      "3.14",
+      "3.15"
+    ],
+    "checks": [
+      "Unit and HTTP tests",
+      "Lint",
+      "Source and wheel build"
+    ]
   },
-  "face": {
-    "model_digests_verified": true,
-    "same_image_consistency_cosine": 1.0,
-    "blank_image_refused": true,
-    "door_actions": 0,
-    "scope": "API/integrity consistency check, not recognition accuracy, liveness, spoof resistance or real access-control validation.",
-    "upstream_diagnostic": "OpenCV 5 emits a target-support warning from its new graph-engine setup. Inference and explicit failure checks passed; the warning was not hidden."
+  "coverage": [
+    "Commands and device state",
+    "Scenes apply all changes together or none",
+    "Door and alarm rules",
+    "Timers",
+    "Configuration and scene management",
+    "State persistence and failed saves",
+    "HTTP input and local-origin checks",
+    "Serial loopback framing"
+  ],
+  "additional_checks": {
+    "dependencies": "python -m pip check",
+    "lint": "ruff check src tests",
+    "lock": "uv lock --check",
+    "package": "python -m build"
   },
-  "serial": {
-    "loopback": "Passed, with matching request id and transmitted frame.",
-    "physical_hardware_tested": false
+  "optional_features": {
+    "voice": "Offline speech input and audio-file output use separate extras.",
+    "face": "Face detection and comparison use pinned model files and explicit downloads.",
+    "serial": "Loopback checks software framing; physical integration needs separate hardware tests."
   },
-  "packaging": {
-    "explicit_sdist_allowlist": true,
-    "environment_model_and_credential_exclusions_checked": true,
-    "clean_wheel_install": "Passed: import from site-packages, packaged configuration, command flow and all local HTTP assets."
-  },
-  "browser": "Local browser flows cover device controls, scenes, command handling, code-protected actions and room filtering. Screenshots are in docs/images/.",
-  "physical_validation": "Software checks cover simulation, local files and serial loopback. Raspberry Pi, Arduino, wiring, actuators, camera and microphone were not part of the hardware test setup.",
-  "independent_release_check": "37 tests passed, including configuration import and scene save/run. Hardware integration and face-recognition accuracy are outside the software checks."
+  "scope": "The automated suite covers software and simulated devices. It does not establish physical hardware behavior, speech/face accuracy or real access-control security."
 }
