@@ -1,0 +1,32 @@
+{
+  "name": "Farouk's Smart Home",
+  "devices": [
+    {"id": "light_1", "name": "Main Light", "room": "Living Room", "type": "light", "state": "off", "brightness": 100, "color": "white"},
+    {"id": "light_2", "name": "Lamp", "room": "Bedroom", "type": "light", "state": "off", "brightness": 100, "color": "white"},
+    {"id": "door_1", "name": "Front Door", "room": "Entrance", "type": "door", "state": "closed", "locked": true},
+    {"id": "curtain_1", "name": "Window Curtain", "room": "Living Room", "type": "curtain", "state": "closed", "position": 0},
+    {"id": "fan_1", "name": "Ceiling Fan", "room": "Living Room", "type": "fan", "state": "off", "speed": 0},
+    {"id": "bin_1", "name": "Trash Bin", "room": "Kitchen", "type": "bin", "state": "closed"},
+    {"id": "alarm_1", "name": "Alarm", "room": "Entrance", "type": "alarm", "state": "disarmed"}
+  ],
+  "scenes": {
+    "movie_time": [
+      {"device_id": "light_1", "command": "dim", "value": 30},
+      {"device_id": "curtain_1", "command": "close"},
+      {"device_id": "fan_1", "command": "set_speed", "value": 20}
+    ],
+    "good_morning": [
+      {"device_id": "light_1", "command": "turn_on"},
+      {"device_id": "light_2", "command": "turn_on"},
+      {"device_id": "curtain_1", "command": "open"}
+    ],
+    "night_mode": [
+      {"device_id": "light_1", "command": "turn_off"},
+      {"device_id": "light_2", "command": "turn_off"},
+      {"device_id": "fan_1", "command": "turn_off"},
+      {"device_id": "curtain_1", "command": "close"},
+      {"device_id": "door_1", "command": "close"},
+      {"device_id": "door_1", "command": "lock"}
+    ]
+  }
+}

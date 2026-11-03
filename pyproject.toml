@@ -1,0 +1,39 @@
+[build-system]
+requires = ["hatchling==1.33.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "farouk-smart-home"
+version = "1.0.0"
+description = "An academic smart-home controller restored as a local, testable portfolio demo"
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [{name = "Alfarouk Salah Elkashef"}]
+dependencies = []
+
+[project.optional-dependencies]
+voice = ["SpeechRecognition==3.17.0", "pocketsphinx==5.1.1"]
+tts = ["pyttsx3==2.99"]
+microphone = ["PyAudio>=0.2.14,<0.3"]
+serial = ["pyserial==3.5"]
+face = ["opencv-python-headless==5.0.0.93", "numpy==2.5.4"]
+dev = ["ruff==0.17.3", "build==1.6.1"]
+
+[project.scripts]
+smart-home = "smart_home.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/smart_home"]
+
+[tool.hatch.build.targets.sdist]
+include = ["/src", "/tests", "/docs", "/README.md", "/LICENSE.md", "/pyproject.toml", "/uv.lock", "/.github", "/.gitignore"]
+
+[tool.hatch.build]
+exclude = ["/.venv*", "/models", "/captures", "/enrollment", "/dist", "/build", "/project-progress.json"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "B"]

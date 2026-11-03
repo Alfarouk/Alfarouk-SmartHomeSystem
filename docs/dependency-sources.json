@@ -1,0 +1,45 @@
+{
+  "as_of": "2026-11-03",
+  "policy": "Current stable registry releases checked against official package metadata; exact optional/direct versions pinned. Core uses onlyPython standard library.",
+  "registries": {
+    "python": "https://www.python.org/downloads/",
+    "hatchling": "https://pypi.org/pypi/hatchling/json",
+    "SpeechRecognition": "https://pypi.org/pypi/SpeechRecognition/json",
+    "pocketsphinx": "https://pypi.org/pypi/pocketsphinx/json",
+    "pyttsx3": "https://pypi.org/pypi/pyttsx3/json",
+    "pyserial": "https://pypi.org/pypi/pyserial/json",
+    "opencv-python-headless": "https://pypi.org/pypi/opencv-python-headless/json",
+    "numpy": "https://pypi.org/pypi/numpy/json",
+    "ruff": "https://pypi.org/pypi/ruff/json",
+    "build": "https://pypi.org/pypi/build/json"
+  },
+  "versions": {
+    "hatchling": "1.33.0",
+    "SpeechRecognition": "3.17.0",
+    "pocketsphinx": "5.1.1",
+    "pyttsx3": "2.99",
+    "PyAudio": "0.2.14",
+    "pyserial": "3.5",
+    "opencv-python-headless": "5.0.0.93",
+    "numpy": "2.5.4",
+    "ruff": "0.17.3",
+    "build": "1.6.1"
+  },
+  "github_actions": {
+    "checkout": {
+      "tag": "v7.0.1",
+      "commit": "3d3c42e5aac5ba805825da76410c181273ba90b1"
+    },
+    "setup-python": {
+      "tag": "v7.1.0",
+      "commit": "6d4fd22b20465ccc0f7354476588e8df7c9ca0e0"
+    }
+  },
+  "api_docs": [
+    "https://docs.python.org/3/library/http.server.html",
+    "https://docs.opencv.org/4.x/d0/dd4/tutorial_dnn_face.html",
+    "https://pyserial.readthedocs.io/en/latest/pyserial_api.html"
+  ],
+  "model_commit": "48b10fa505aeb51fbd127fc60a5c660040e823b7",
+  "version_claim_limit": "Checked versions as of restoration; current/future package availability or physical hardware compatibility is not assumed."
+}
